@@ -53,7 +53,13 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: secrets.GITHUBTOKEN-name:Generaretiquetasdelaimagenid:metauses:docker/metadata-action@v5with:images:ghcr.io/{{ github.repository }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generar etiquetas de la imagen
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=sha,format=short
